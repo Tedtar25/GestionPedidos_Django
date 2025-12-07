@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Detalle del pedido {{ pedido.id }}</title>
 </head>
+
 <body>
     <h1>Detalle del pedido #{{ pedido.id }}</h1>
 
@@ -16,7 +18,7 @@
     <p>
         {{ pedido.cliente.calle }} {{ pedido.cliente.num_exterior }}
         {% if pedido.cliente.num_interior %}
-            Int. {{ pedido.cliente.num_interior }}
+        Int. {{ pedido.cliente.num_interior }}
         {% endif %}<br>
         {{ pedido.cliente.colonia }}<br>
         {{ pedido.cliente.ciudad }}, {{ pedido.cliente.estado }}<br>
@@ -24,8 +26,18 @@
     </p>
 
     <h2>Resumen del pedido</h2>
+
     <p><strong>Fecha:</strong> {{ pedido.fecha_pedido }}</p>
     <p><strong>Estado:</strong> {{ pedido.get_estado_display }}</p>
+
+    {% if pedido.paqueteria %}
+    <p><strong>Paquetería:</strong> {{ pedido.get_paqueteria_display }}</p>
+    {% endif %}
+
+    {% if pedido.fecha_entrega %}
+    <p><strong>Fecha de entrega estimada:</strong> {{ pedido.fecha_entrega }}</p>
+    {% endif %}
+
 
     <h2>Productos</h2>
     <table border="1" cellpadding="8">
@@ -64,4 +76,5 @@
 
     <p><a href="{% url 'mis_pedidos' %}">Volver a mis pedidos</a></p>
 </body>
+
 </html>

@@ -2,6 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Pedido, ItemPedido
 from .forms import CrearPedidoForm
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import redirect
+from .models import Cliente, Pedido
 
 # Create your views here.
 
@@ -26,13 +29,13 @@ def detalle_pedido(request, pedido_id):
 
 @login_required
 def mis_pedidos(request):
-    cliente = request.user.cliente  # gracias a related_name="cliente"
+    if request.user.is_staff:
+        return redirect("lista_pedidos")
+
+    cliente = get_object_or_404(Cliente, user=request.user)
     pedidos = Pedido.objects.filter(cliente=cliente).order_by("-fecha_pedido")
 
-    contexto = {
-        "pedidos": pedidos
-    }
-    return render(request, "pedidos/mis_pedidos.html", contexto)
+    return render(request, "pedidos/mis_pedidos.html", {"pedidos": pedidos})
 
 @login_required
 def mis_pedidos_detalle(request, pedido_id):
@@ -91,3 +94,8 @@ def cancelar_pedido(request, pedido_id):
         pedido.save(update_fields=["estado"])
 
     return redirect("mis_pedidos_detalle", pedido_id=pedido.id)
+
+@staff_member_required
+def lista_pedidos(request):
+    pedidos = Pedido.objects.all().order_by("-fecha_pedido")
+    return render(request, "pedidos/lista_pedidos.html", {"pedidos": pedidos})

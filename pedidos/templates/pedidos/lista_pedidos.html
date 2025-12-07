@@ -8,6 +8,15 @@
 </head>
 <h1>Listado de pedidos</h1>
 
+<p>Usuario: {{ request.user.username }}</p>
+
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Cerrar sesión</button>
+</form>
+<br>
+
+
 <table border="1" cellpadding="8">
     <thead>
         <tr>
