@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Mis pedidos</h1>
+
+    <p>Usuario: {{ request.user.username }}</p>
+
+    <p>
+        <a href="{% url 'crear_pedido' %}">Crear nuevo pedido</a>
+    </p>
+
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.fecha_pedido }}</td>
+                <td>{{ pedido.get_estado_display }}</td>
+                <td>{{ pedido.total }}</td>
+                <td>
+                    <a href="{% url 'detalle_pedido' pedido.id %}">Ver detalle</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No tienes pedidos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
