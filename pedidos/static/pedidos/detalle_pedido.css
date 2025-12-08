@@ -19,7 +19,6 @@ body {
     color: var(--text-main);
 }
 
-/* Contenedor */
 .page-container {
     max-width: 1100px;
     margin: 40px auto;
@@ -31,7 +30,6 @@ h1 {
     margin-bottom: 24px;
 }
 
-/* Secciones */
 .section-card {
     background-color: var(--bg-card);
     border-radius: 10px;
@@ -55,7 +53,6 @@ h1 {
     font-weight: 600;
 }
 
-/* Tabla de productos */
 .table-wrapper {
     margin-top: 10px;
 }
@@ -78,7 +75,6 @@ th, td {
     text-align: left;
 }
 
-/* Totales */
 .totals {
     margin-top: 8px;
     font-size: 0.95rem;
@@ -88,7 +84,6 @@ th, td {
     margin: 3px 0;
 }
 
-/* Link volver */
 .back-link {
     margin-top: 18px;
     font-size: 0.9rem;
