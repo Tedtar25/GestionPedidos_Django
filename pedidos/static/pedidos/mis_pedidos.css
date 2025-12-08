@@ -1,0 +1,133 @@
+/* Estilos generales */
+:root {
+    --bg-body: #f4f7fb;
+    --bg-card: #ffffff;
+    --bg-header: #1f3b4d;
+    --bg-header-soft: #e9f0f7;
+    --text-main: #1a1a1a;
+    --text-muted: #6c757d;
+    --accent: #0d6efd;
+    --accent-hover: #0b5ed7;
+    --border-soft: #dde3ec;
+    --row-hover: #f1f5fb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+}
+
+/* Contenedor principal */
+.page-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 2rem;
+}
+
+/* Info de usuario + botón logout */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-form button {
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid var(--accent);
+    background-color: #ffffff;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.15s ease-in-out;
+}
+
+.logout-form button:hover {
+    background-color: var(--accent);
+    color: #ffffff;
+}
+
+/* Link crear pedido */
+.actions-top {
+    margin-bottom: 16px;
+}
+
+.actions-top a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.actions-top a:hover {
+    text-decoration: underline;
+}
+
+/* Tabla */
+.table-wrapper {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+thead {
+    background-color: var(--bg-header);
+    color: #ffffff;
+}
+
+th, td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-soft);
+    text-align: left;
+}
+
+th {
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--bg-header-soft);
+}
+
+tbody tr:hover {
+    background-color: var(--row-hover);
+}
+
+/* Acciones */
+.table-actions a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.table-actions a:hover {
+    text-decoration: underline;
+}

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,16 +7,24 @@
     <link rel="stylesheet" href="{% static 'pedidos/crear_pedido.css' %}">
 </head>
 <body>
-    <h1>Crear nuevo pedido</h1>
+    <div class="page-container">
+        <h1>Crear nuevo pedido</h1>
 
-    <p>Usuario: {{ request.user.username }}</p>
+        <p class="user-info">
+            Usuario: <strong>{{ request.user.username }}</strong>
+        </p>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Confirmar pedido</button>
-    </form>
+        <div class="form-card">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Confirmar pedido</button>
+            </form>
+        </div>
 
-    <p><a href="{% url 'mis_pedidos' %}">Volver a mis pedidos</a></p>
+        <p class="back-link">
+            <a href="{% url 'mis_pedidos' %}">Volver a mis pedidos</a>
+        </p>
+    </div>
 </body>
 </html>

@@ -1,56 +1,65 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis pedidos</title>
     <link rel="stylesheet" href="{% static 'pedidos/mis_pedidos.css' %}">
 </head>
-
 <body>
-    <h1>Mis pedidos</h1>
+    <div class="page-container">
+        <header class="page-header">
+            <h1>Mis pedidos</h1>
 
-    <p>Usuario: {{ request.user.username }}</p>
+            <div class="user-info">
+                <span class="user-label">Usuario:</span>
+                <span class="user-name">{{ request.user.username }}</span>
 
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Cerrar sesión</button>
-    </form>
+                <form method="post" action="{% url 'logout' %}" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit">Cerrar sesión</button>
+                </form>
+            </div>
+        </header>
 
+        <div class="actions-row">
+            <p>Revisa el historial de tus compras y el detalle de cada pedido.</p>
+            <a href="{% url 'crear_pedido' %}" class="primary-link">
+                Crear nuevo pedido
+            </a>
+        </div>
 
-    <p>
-        <a href="{% url 'crear_pedido' %}">Crear nuevo pedido</a>
-    </p>
-
-    <table border="1" cellpadding="8">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-                <th>Total</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for pedido in pedidos %}
-            <tr>
-                <td>{{ pedido.id }}</td>
-                <td>{{ pedido.fecha_pedido }}</td>
-                <td>{{ pedido.get_estado_display }}</td>
-                <td>{{ pedido.total }}</td>
-                <td>
-                    <a href="{% url 'detalle_pedido' pedido.id %}">Ver detalle</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No tienes pedidos registrados.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                <tr>
+                    <td>{{ pedido.id }}</td>
+                    <td>{{ pedido.fecha_pedido }}</td>
+                    <td>{{ pedido.get_estado_display }}</td>
+                    <td>{{ pedido.total }}</td>
+                    <td>
+                        <a href="{% url 'detalle_pedido' pedido.id %}" class="link-detalle">
+                            Ver detalle
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr class="empty-row">
+                    <td colspan="5">No tienes pedidos registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
-
 </html>

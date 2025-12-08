@@ -1,81 +1,92 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>Detalle del pedido {{ pedido.id }}</title>
     <link rel="stylesheet" href="{% static 'pedidos/detalle_pedido.css' %}">
 </head>
-
 <body>
-    <h1>Detalle del pedido #{{ pedido.id }}</h1>
+    <div class="page-container">
+        <header class="page-header">
+            <h1>Detalle del pedido #{{ pedido.id }}</h1>
+        </header>
 
-    <h2>Cliente</h2>
-    <p><strong>Nombre:</strong> {{ pedido.cliente.nombre }}</p>
-    <p><strong>Email:</strong> {{ pedido.cliente.email }}</p>
-    <p><strong>Teléfono:</strong> {{ pedido.cliente.telefono }}</p>
+        <section class="card">
+            <h2>Cliente</h2>
+            <p><strong>Nombre:</strong> {{ pedido.cliente.nombre }}</p>
+            <p><strong>Email:</strong> {{ pedido.cliente.email }}</p>
+            <p><strong>Teléfono:</strong> {{ pedido.cliente.telefono }}</p>
 
-    <h3>Dirección</h3>
-    <p>
-        {{ pedido.cliente.calle }} {{ pedido.cliente.num_exterior }}
-        {% if pedido.cliente.num_interior %}
-        Int. {{ pedido.cliente.num_interior }}
-        {% endif %}<br>
-        {{ pedido.cliente.colonia }}<br>
-        {{ pedido.cliente.ciudad }}, {{ pedido.cliente.estado }}<br>
-        C.P. {{ pedido.cliente.codigo_postal }}
-    </p>
+            <h3>Dirección</h3>
+            <p class="address">
+                {{ pedido.cliente.calle }} {{ pedido.cliente.num_exterior }}
+                {% if pedido.cliente.num_interior %}
+                    Int. {{ pedido.cliente.num_interior }}
+                {% endif %}<br>
+                {{ pedido.cliente.colonia }}<br>
+                {{ pedido.cliente.ciudad }}, {{ pedido.cliente.estado }}<br>
+                C.P. {{ pedido.cliente.codigo_postal }}
+            </p>
+        </section>
 
-    <h2>Resumen del pedido</h2>
+        <section class="card">
+            <h2>Resumen del pedido</h2>
 
-    <p><strong>Fecha:</strong> {{ pedido.fecha_pedido }}</p>
-    <p><strong>Estado:</strong> {{ pedido.get_estado_display }}</p>
+            <p><strong>Fecha:</strong> {{ pedido.fecha_pedido }}</p>
+            <p><strong>Estado:</strong> {{ pedido.get_estado_display }}</p>
 
-    {% if pedido.paqueteria %}
-    <p><strong>Paquetería:</strong> {{ pedido.get_paqueteria_display }}</p>
-    {% endif %}
+            {% if pedido.paqueteria %}
+                <p><strong>Paquetería:</strong> {{ pedido.get_paqueteria_display }}</p>
+            {% endif %}
 
-    {% if pedido.fecha_entrega %}
-    <p><strong>Fecha de entrega estimada:</strong> {{ pedido.fecha_entrega }}</p>
-    {% endif %}
+            {% if pedido.fecha_entrega %}
+                <p><strong>Fecha de entrega estimada:</strong> {{ pedido.fecha_entrega }}</p>
+            {% endif %}
+        </section>
 
+        <section class="card">
+            <h2>Productos</h2>
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th>Impuesto unitario</th>
+                        <th>Subtotal</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.nombre_producto }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>{{ item.precio_unitario }}</td>
+                        <td>{{ item.impuesto_unitario }}</td>
+                        <td>{{ item.subtotal }}</td>
+                        <td>{{ item.total }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr class="empty-row">
+                        <td colspan="6">Este pedido no tiene productos.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
 
-    <h2>Productos</h2>
-    <table border="1" cellpadding="8">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio unitario</th>
-                <th>Impuesto unitario</th>
-                <th>Subtotal</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td>{{ item.nombre_producto }}</td>
-                <td>{{ item.cantidad }}</td>
-                <td>{{ item.precio_unitario }}</td>
-                <td>{{ item.impuesto_unitario }}</td>
-                <td>{{ item.subtotal }}</td>
-                <td>{{ item.total }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">Este pedido no tiene productos.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <section class="card totals-card">
+            <h2>Totales</h2>
+            <p><strong>Subtotal:</strong> {{ pedido.subtotal }}</p>
+            <p><strong>Impuestos:</strong> {{ pedido.impuestos }}</p>
+            <p><strong>Total:</strong> {{ pedido.total }}</p>
+        </section>
 
-    <h2>Totales</h2>
-    <p><strong>Subtotal:</strong> {{ pedido.subtotal }}</p>
-    <p><strong>Impuestos:</strong> {{ pedido.impuestos }}</p>
-    <p><strong>Total:</strong> {{ pedido.total }}</p>
-
-    <p><a href="{% url 'mis_pedidos' %}">Volver a mis pedidos</a></p>
+        <div class="back-link">
+            <a href="{% url 'mis_pedidos' %}">Volver a mis pedidos</a>
+        </div>
+    </div>
 </body>
-
 </html>
