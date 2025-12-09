@@ -19,7 +19,7 @@ def lista_pedidos(request):
 
 def detalle_pedido(request, pedido_id):
     pedido = get_object_or_404(Pedido, id=pedido_id)
-    items = pedido.itempedido_set.all()  # relación inversa
+    items = pedido.itempedido_set.all()
 
     contexto = {
         "pedido": pedido,

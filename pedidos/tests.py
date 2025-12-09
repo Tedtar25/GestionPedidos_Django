@@ -48,7 +48,7 @@ class ServiciosPedidosTests(TestCase):
             subtotal=self.producto.precio_unitario,
             total=self.producto.precio_unitario + self.producto.impuesto_unitario,
         )
-        # Calcular totales del pedido
+        # otales del pedido
         self.pedido1.actualizar_totales()
 
         # Pedido en otro estado
@@ -65,7 +65,7 @@ class ServiciosPedidosTests(TestCase):
 
         total_ventas = calcular_total_ventas(pedidos)
 
-        # 3 asserts mínimos
+        # 3 asserts 
         self.assertIsInstance(total_ventas, Decimal)
         self.assertGreater(total_ventas, Decimal("0"))
         self.assertEqual(total_ventas, self.pedido1.total + self.pedido2.total)
@@ -77,7 +77,7 @@ class ServiciosPedidosTests(TestCase):
         entregados = contar_pedidos_por_estado(pedidos, Pedido.Estado.ENTREGADO)
         cancelados = contar_pedidos_por_estado(pedidos, Pedido.Estado.CANCELADO)
 
-        # 3 asserts mínimos
+        #asserts 
         self.assertEqual(pendientes, 1)
         self.assertEqual(entregados, 1)
         self.assertEqual(cancelados, 0)
@@ -100,7 +100,6 @@ class ModeloPedidoItemTests(TestCase):
             codigo_postal="37000",
         )
 
-        # Producto base
         self.producto = Producto.objects.create(
             nombre="Monitor Prueba",
             precio_unitario=Decimal("5000.00"),
@@ -120,12 +119,12 @@ class ModeloPedidoItemTests(TestCase):
         item = ItemPedido.objects.create(
             pedido=self.pedido,
             producto=self.producto,
-            nombre_producto="",          # se debe rellenar en save()
-            precio_unitario=Decimal("0"),  # se sobrescribe en save()
+            nombre_producto="",          
+            precio_unitario=Decimal("0"),  
             cantidad=2,
-            impuesto_unitario=Decimal("0"),  # se sobrescribe en save()
-            subtotal=Decimal("0"),         # se calcula en save()
-            total=Decimal("0"),            # se calcula en save()
+            impuesto_unitario=Decimal("0"),  
+            subtotal=Decimal("0"),         
+            total=Decimal("0"),          
         )
 
         # 3 asserts (mínimo)
